@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     stages {
-    stage('Compile and Clean') {
-        steps {
-               sh "mvn --version"
+        stage('Version') {
+            steps {
+                sh "mvn --version"
             }
         }
         stage('Compile and Clean') {
