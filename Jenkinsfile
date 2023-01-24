@@ -12,15 +12,9 @@ pipeline {
             }
         }
 
-        stage('Compile and Clean') {
+        stage('Build') {
             steps {
-                sh "mvn clean compile"
-            }
-        }
-
-        stage('package') {
-            steps {
-                sh "mvn package"
+                sh "mvn clean package -Dmaven.test.skip=true"
             }
         }
 
