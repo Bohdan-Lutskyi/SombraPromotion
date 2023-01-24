@@ -3,15 +3,15 @@ pipeline {
 
     stages {
 
-        stage('Compile and Clean') {
+        stage('Clean Docker') {
             steps {
-                sh "mvn clean compile"
+                sh 'docker ps -q -f status=exited | xargs --no-run-if-empty docker rm'
             }
         }
 
-        stage('Clean Docker') {
+        stage('Compile and Clean') {
             steps {
-                sh 'docker kill $(docker ps -q)'
+                sh "mvn clean compile"
             }
         }
 
