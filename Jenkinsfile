@@ -11,7 +11,7 @@ pipeline {
 
         stage('Clean Docker') {
             steps {
-                sh "docker kill $(docker ps -q)"
+                sh 'docker kill $(docker ps -q)'
             }
         }
 
