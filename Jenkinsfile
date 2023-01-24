@@ -2,27 +2,31 @@ pipeline {
     agent any
 
     stages {
+
         stage('Version') {
             steps {
                 sh "mvn --version"
             }
         }
+
         stage('Compile and Clean') {
             steps {
                 sh "mvn clean compile"
             }
         }
+
+        stage('deploy') {
+            steps {
+                sh "mvn package"
+            }
+        }
+
         stage('startApp') {
             steps {
                 sh "java -jar -Dserver.port=8081 /target/promotion-0.0.1-SNAPSHOT.jar"
             }
         }
-        // stage('deploy') {
 
-        //     steps {
-        //         sh "mvn package"
-        //     }
-        // }
         // stage('Build Docker image'){
 
         //     steps {
