@@ -8,7 +8,7 @@ pipeline {
                 sh 'docker ps -q | xargs --no-run-if-empty docker stop'
                 sh 'docker ps -q -a | xargs --no-run-if-empty docker rm --force --volumes'
                 sh 'docker volume ls -q | xargs --no-run-if-empty docker volume rm'
-                sh 'docker images -a -q | xargs --no-run-if-empty docker rmi -f'
+                sh 'docker images -q -f dangling=true | xargs --no-run-if-empty docker rmi'
             }
         }
 
