@@ -9,6 +9,12 @@ pipeline {
             }
         }
 
+        stage('Clean Docker') {
+            steps {
+                sh "docker kill $(docker ps -q)"
+            }
+        }
+
         stage('package') {
             steps {
                 sh "mvn package"
