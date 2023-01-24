@@ -15,26 +15,20 @@ pipeline {
             }
         }
 
-        stage('deploy') {
+        stage('package') {
             steps {
                 sh "mvn package"
             }
         }
 
-        stage('startApp') {
+        stage('Build Docker image'){
             steps {
-                sh "java -jar -Dserver.port=8081 /target/promotion-0.0.1-SNAPSHOT.jar"
+                echo "Promotion Application"
+                sh 'ls'
+                sh 'docker build -t  bum240798/docker_jenkins_springboot:${BUILD_NUMBER} .'
             }
         }
 
-        // stage('Build Docker image'){
-
-        //     steps {
-        //         echo "Promotion Application"
-        //         sh 'ls'
-        //         sh 'docker build -t  bum240798/docker_jenkins_springboot:${BUILD_NUMBER} .'
-        //     }
-        // }
         // stage('Docker Login'){
 
         //     steps {
