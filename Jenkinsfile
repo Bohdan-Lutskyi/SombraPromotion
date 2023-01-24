@@ -5,7 +5,10 @@ pipeline {
 
         stage('Clean Docker') {
             steps {
-                sh 'docker ps -q -f status=exited | xargs --no-run-if-empty docker rm'
+                sh 'docker ps -q | xargs --no-run-if-empty docker stop'
+                sh 'docker ps -q -a | xargs --no-run-if-empty docker rm --force --volumes'
+                sh 'docker volume ls -q | xargs --no-run-if-empty docker volume rm'
+                sh 'docker images -a -q | xargs --no-run-if-empty docker rmi -f'
             }
         }
 
