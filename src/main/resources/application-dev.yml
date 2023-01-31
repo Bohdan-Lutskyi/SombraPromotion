@@ -26,5 +26,5 @@
 #jwt:
 #  secret: promotion
 #
-#server:
-#  port: 8081
+server:
+  port: 8081
