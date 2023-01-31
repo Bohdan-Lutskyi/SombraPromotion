@@ -8,9 +8,9 @@ hooks:
   BeforeInstall:
     - location: server_clear.sh
       runas: root
-#  AfterInstall:
-#    - location: fix_privileges.sh
-#      runas: root
+  AfterInstall:
+    - location: fix_privileges.sh
+      runas: root
   ApplicationStart:
     - location: server_start.sh
       runas: root
