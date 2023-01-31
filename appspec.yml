@@ -1,0 +1,16 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/project/SombraPromotion
+    overwrite: true
+hooks:
+  BeforeInstall:
+    - location: server_clear.sh
+      runas: root
+  ApplicationStart:
+    - location: server_start.sh
+      runas: root
+  ApplicationStop:
+    - location: server_stop.sh
+      runas: root
