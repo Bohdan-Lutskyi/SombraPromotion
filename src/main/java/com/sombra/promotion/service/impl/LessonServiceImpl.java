@@ -43,6 +43,13 @@ public class LessonServiceImpl implements LessonService {
     @Override
     public LessonDTO save(LessonDTO lessonDTO) {
         log.debug("Request to save Lesson : {}", lessonDTO);
+        Optional<Lesson> lessonFromDb = lessonRepository.findByStudentIdAndCourseIdAndLessonNumber(lessonDTO.getStudentId(), lessonDTO.getCourseId(), lessonDTO.getLessonNumber());
+        if (lessonFromDb.isPresent()) {
+            throw new SystemException(String.format("Lesson with number %s, for student %s and course %s already exist.",
+                    lessonFromDb.get().getLessonNumber(), lessonFromDb.get().getStudent().getUser().getEmail(),
+                    lessonFromDb.get().getCourse().getName()),
+                    ErrorCode.BAD_REQUEST);
+        }
         Lesson lesson = lessonMapper.toEntity(lessonDTO);
         lesson = lessonRepository.save(lesson);
         return lessonMapper.toDto(lesson);

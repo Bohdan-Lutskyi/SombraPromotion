@@ -3,6 +3,8 @@ package com.sombra.promotion.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -27,6 +29,8 @@ public class Lesson extends BaseEntity implements Serializable {
 
     @NotNull
     @Column(name = "mark")
+    @Min(value = 0)
+    @Max(value = 10)
     private Short mark;
 
     @OneToOne(fetch = FetchType.LAZY)

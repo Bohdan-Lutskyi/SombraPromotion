@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Set;
@@ -19,6 +21,8 @@ public class LessonDTO extends BaseDTO implements Serializable {
     private Short lessonNumber;
 
     @NotNull
+    @Min(value = 0)
+    @Max(value = 10)
     private Short mark;
 
     @NotNull
@@ -26,5 +30,6 @@ public class LessonDTO extends BaseDTO implements Serializable {
 
     @NotNull
     private Long courseId;
+
     private Set<Long> studentAttachmentIds;
 }
