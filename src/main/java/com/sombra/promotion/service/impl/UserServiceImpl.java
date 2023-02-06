@@ -47,6 +47,7 @@ public class UserServiceImpl implements UserService {
                     throw new SystemException(String.format("User with email: %s already exist.", userDTO.getEmail()), ErrorCode.BAD_REQUEST);
                 });
         log.debug("Request to save User : {}", userDTO);
+        validateRole(userDTO);
         User newUser = userMapper.toEntity(userDTO);
         String encryptedPassword = passwordEncoder.encode(password);
         newUser.setPassword(encryptedPassword);
@@ -56,6 +57,12 @@ public class UserServiceImpl implements UserService {
         final User savedUser = userRepository.save(newUser);
         log.debug("Created Information for User: {}", savedUser);
         return userMapper.toDto(savedUser);
+    }
+
+    private void validateRole(final UserDTO userDTO) {
+        if (userDTO.getUserRoles().contains(UserRole.ADMIN)) {
+            throw new SystemException(String.format("You are not able to create user with role: %s.", UserRole.ADMIN), ErrorCode.BAD_REQUEST);
+        }
     }
 
     @Override

@@ -3,7 +3,8 @@ package com.sombra.promotion.domain.enumeration;
 public enum UserRole {
     ADMIN,
     STUDENT,
-    INSTRUCTOR;
+    INSTRUCTOR,
+    NO_ROLE;
 
     public static UserRole fromValue(String value) {
         for (UserRole role : UserRole.values()) {

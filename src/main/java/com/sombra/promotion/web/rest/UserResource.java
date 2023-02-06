@@ -36,14 +36,12 @@ public class UserResource {
 
     private final UserService userService;
     private final UserRepository userRepository;
-    private final SecurityService securityService;
 
     public UserResource(final UserService userService,
                         final UserRepository userRepository,
                         final SecurityService securityService) {
         this.userService = userService;
         this.userRepository = userRepository;
-        this.securityService = securityService;
     }
 
     /**
