@@ -60,8 +60,7 @@ class StudentAttachmentResourceTest {
         StudentRepository studentRepository1 = mock(StudentRepository.class);
         InstructorRepository instructorRepository = mock(InstructorRepository.class);
         LessonServiceImpl lessonService = new LessonServiceImpl(lessonRepository, lessonMapper, studentService,
-                new CourseServiceImpl(courseRepository, courseMapper, studentRepository1, instructorRepository,
-                        new StudentMapperImpl()));
+                new CourseServiceImpl(courseRepository, courseMapper, studentRepository1, instructorRepository));
 
         LessonMapperImpl lessonMapper1 = new LessonMapperImpl();
         StudentAttachmentResource studentAttachmentResource = new StudentAttachmentResource(

@@ -73,7 +73,7 @@ class CourseResourceTest {
         StudentRepository studentRepository = mock(StudentRepository.class);
         InstructorRepository instructorRepository = mock(InstructorRepository.class);
         CourseResource courseResource = new CourseResource(new CourseServiceImpl(courseRepository, courseMapper,
-                studentRepository, instructorRepository, new StudentMapperImpl()), mock(CourseRepository.class));
+                studentRepository, instructorRepository), mock(CourseRepository.class));
 
         CourseDTO courseDTO = new CourseDTO();
         courseDTO.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
@@ -192,7 +192,7 @@ class CourseResourceTest {
         StudentRepository studentRepository = mock(StudentRepository.class);
 
         CourseResource courseResource = new CourseResource(new CourseServiceImpl(courseRepository, courseMapperImpl,
-                studentRepository, instructorRepository, new StudentMapperImpl()), mock(CourseRepository.class));
+                studentRepository, instructorRepository), mock(CourseRepository.class));
         courseResource.addStudentToCourse(123L, new HashSet<>());
 
         CourseDTO courseDTO1 = new CourseDTO();
@@ -243,7 +243,7 @@ class CourseResourceTest {
         StudentRepository studentRepository = mock(StudentRepository.class);
         InstructorRepository instructorRepository = mock(InstructorRepository.class);
         CourseResource courseResource = new CourseResource(new CourseServiceImpl(courseRepository, courseMapper,
-                studentRepository, instructorRepository, new StudentMapperImpl()), mock(CourseRepository.class));
+                studentRepository, instructorRepository), mock(CourseRepository.class));
 
         CourseDTO courseDTO = new CourseDTO();
         courseDTO.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");

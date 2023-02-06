@@ -5,7 +5,7 @@ import com.sombra.promotion.dto.InstructorDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -39,7 +39,7 @@ public interface InstructorMapper extends EntityMapper<InstructorDTO, Instructor
 
     default Set<Instructor> fromIds(Set<Long> ids) {
         if (ids.isEmpty()) {
-            return Collections.emptySet();
+            return new HashSet<>();
         }
         final Set<Instructor> instructors = ids.stream().map(this::fromId).collect(Collectors.toSet());
         return instructors;
@@ -54,7 +54,7 @@ public interface InstructorMapper extends EntityMapper<InstructorDTO, Instructor
 
     default Set<Long> fromInstructors(Set<Instructor> instructors) {
         if (instructors == null || instructors.isEmpty()) {
-            return Collections.emptySet();
+            return new HashSet<>();
         }
         final Set<Long> ids = instructors.stream().map(this::fromInstructor).collect(Collectors.toSet());
         return ids;

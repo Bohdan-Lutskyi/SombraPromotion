@@ -7,7 +7,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
 import java.util.Collection;
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.stream.Collectors;
 
 /**
@@ -27,7 +27,7 @@ public interface StudentAttachmentMapper extends EntityMapper<StudentAttachmentD
     @Named(value = "fromStudentAttachments")
     default Collection<Long> fromStudentAttachments(Collection<StudentAttachment> studentAttachments) {
         if (studentAttachments == null || studentAttachments.isEmpty()) {
-            return Collections.emptySet();
+            return new HashSet<>();
         }
         final Collection<Long> ids = studentAttachments.stream().map(this::fromStudentAttachment).collect(Collectors.toSet());
         return ids;

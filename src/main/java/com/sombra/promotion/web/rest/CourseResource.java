@@ -3,7 +3,7 @@ package com.sombra.promotion.web.rest;
 import com.sombra.promotion.config.error.ErrorCode;
 import com.sombra.promotion.config.error.SystemException;
 import com.sombra.promotion.dto.CourseDTO;
-import com.sombra.promotion.dto.StudentDTO;
+import com.sombra.promotion.dto.RestrictedStudentDTO;
 import com.sombra.promotion.repository.CourseRepository;
 import com.sombra.promotion.service.CourseService;
 import com.sombra.promotion.util.HeaderUtil;
@@ -132,7 +132,7 @@ public class CourseResource {
 
     @GetMapping("/courses/students")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'INSTRUCTOR')")
-    public Map<Long, Set<StudentDTO>> getAllStudentsPerCourse(@RequestParam Collection<Long> courseIds) {
+    public Map<Long, Set<RestrictedStudentDTO>> getAllStudentsPerCourse(@RequestParam Collection<Long> courseIds) {
         log.debug("REST request to get Courses by ids: {}", courseIds);
         return courseService.getAllStudentsPerCourse(courseIds);
     }

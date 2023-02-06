@@ -65,7 +65,7 @@ class CourseFeedbackResourceTest {
         StudentRepository studentRepository = mock(StudentRepository.class);
         InstructorRepository instructorRepository = mock(InstructorRepository.class);
         CourseServiceImpl courseService = new CourseServiceImpl(courseRepository, courseMapper, studentRepository,
-                instructorRepository, new StudentMapperImpl());
+                instructorRepository);
 
         StudentRepository studentRepository1 = mock(StudentRepository.class);
         StudentMapperImpl studentMapper = new StudentMapperImpl();
@@ -104,7 +104,7 @@ class CourseFeedbackResourceTest {
         StudentRepository studentRepository = mock(StudentRepository.class);
         InstructorRepository instructorRepository = mock(InstructorRepository.class);
         CourseServiceImpl courseService = new CourseServiceImpl(courseRepository, courseMapper, studentRepository,
-                instructorRepository, new StudentMapperImpl());
+                instructorRepository);
 
         StudentRepository studentRepository1 = mock(StudentRepository.class);
         StudentMapperImpl studentMapper = new StudentMapperImpl();
@@ -168,8 +168,7 @@ class CourseFeedbackResourceTest {
         CourseMapperImpl courseMapper = new CourseMapperImpl();
         StudentRepository studentRepository = mock(StudentRepository.class);
         InstructorRepository instructorRepository = mock(InstructorRepository.class);
-        new CourseServiceImpl(courseRepository, courseMapper, studentRepository, instructorRepository,
-                new StudentMapperImpl());
+        new CourseServiceImpl(courseRepository, courseMapper, studentRepository, instructorRepository);
 
         CourseFeedbackDTO courseFeedbackDTO = new CourseFeedbackDTO();
         courseFeedbackDTO.setCourseId(123L);
@@ -245,8 +244,7 @@ class CourseFeedbackResourceTest {
         CourseMapperImpl courseMapper = new CourseMapperImpl();
         StudentRepository studentRepository = mock(StudentRepository.class);
         InstructorRepository instructorRepository = mock(InstructorRepository.class);
-        new CourseServiceImpl(courseRepository, courseMapper, studentRepository, instructorRepository,
-                new StudentMapperImpl());
+        new CourseServiceImpl(courseRepository, courseMapper, studentRepository, instructorRepository);
 
         CourseFeedbackDTO courseFeedbackDTO = new CourseFeedbackDTO();
         courseFeedbackDTO.setCourseId(123L);
@@ -311,7 +309,7 @@ class CourseFeedbackResourceTest {
         StudentRepository studentRepository = mock(StudentRepository.class);
         InstructorRepository instructorRepository = mock(InstructorRepository.class);
         CourseServiceImpl courseService = new CourseServiceImpl(courseRepository, courseMapper, studentRepository,
-                instructorRepository, new StudentMapperImpl());
+                instructorRepository);
 
         StudentRepository studentRepository1 = mock(StudentRepository.class);
         StudentMapperImpl studentMapper = new StudentMapperImpl();

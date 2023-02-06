@@ -79,7 +79,7 @@ class LessonResourceTest {
         InstructorRepository instructorRepository = mock(InstructorRepository.class);
         LessonResource lessonResource = new LessonResource(
                 new LessonServiceImpl(lessonRepository, lessonMapper, studentService, new CourseServiceImpl(courseRepository,
-                        courseMapper, studentRepository1, instructorRepository, new StudentMapperImpl())),
+                        courseMapper, studentRepository1, instructorRepository)),
                 mock(LessonRepository.class));
 
         LessonDTO lessonDTO = new LessonDTO();
@@ -118,7 +118,7 @@ class LessonResourceTest {
         InstructorRepository instructorRepository = mock(InstructorRepository.class);
         LessonResource lessonResource = new LessonResource(
                 new LessonServiceImpl(lessonRepository, lessonMapper, studentService, new CourseServiceImpl(courseRepository,
-                        courseMapper, studentRepository1, instructorRepository, new StudentMapperImpl())),
+                        courseMapper, studentRepository1, instructorRepository)),
                 mock(LessonRepository.class));
         LessonDTO lessonDTO = mock(LessonDTO.class);
         when(lessonDTO.getId()).thenReturn(123L);
@@ -222,7 +222,7 @@ class LessonResourceTest {
         InstructorRepository instructorRepository = mock(InstructorRepository.class);
         LessonResource lessonResource = new LessonResource(
                 new LessonServiceImpl(lessonRepository, lessonMapper, studentService, new CourseServiceImpl(courseRepository,
-                        courseMapper, studentRepository1, instructorRepository, new StudentMapperImpl())),
+                        courseMapper, studentRepository1, instructorRepository)),
                 mock(LessonRepository.class));
         LessonDTO lessonDTO = mock(LessonDTO.class);
         when(lessonDTO.getCourseId()).thenReturn(123L);
@@ -313,7 +313,7 @@ class LessonResourceTest {
         InstructorRepository instructorRepository = mock(InstructorRepository.class);
         LessonResource lessonResource = new LessonResource(
                 new LessonServiceImpl(lessonRepository, lessonMapper, studentService, new CourseServiceImpl(courseRepository,
-                        courseMapper, studentRepository1, instructorRepository, new StudentMapperImpl())),
+                        courseMapper, studentRepository1, instructorRepository)),
                 mock(LessonRepository.class));
 
         LessonDTO lessonDTO = new LessonDTO();
