@@ -51,7 +51,7 @@ class CourseResourceTest {
     private CourseService courseService;
 
     /**
-     * Method under test: {@link CourseResource#addInstructorToCourse(Long, java.util.List)}
+     * Method under test: {@link CourseResource#addInstructorToCourse(Long, java.util.Set)}
      */
     @Test
     void testAddInstructorToCourse() throws Exception {
@@ -193,7 +193,7 @@ class CourseResourceTest {
 
         CourseResource courseResource = new CourseResource(new CourseServiceImpl(courseRepository, courseMapperImpl,
                 studentRepository, instructorRepository, new StudentMapperImpl()), mock(CourseRepository.class));
-        courseResource.addStudentToCourse(123L, new ArrayList<>());
+        courseResource.addStudentToCourse(123L, new HashSet<>());
 
         CourseDTO courseDTO1 = new CourseDTO();
         courseDTO1.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
@@ -367,7 +367,7 @@ class CourseResourceTest {
     }
 
     /**
-     * Method under test: {@link CourseResource#addInstructorToCourse(Long, java.util.List)}
+     * Method under test: {@link CourseResource#addInstructorToCourse(Long, java.util.Set)}
      */
     @Test
     void testAddInstructorToCourse2() throws Exception {
@@ -379,7 +379,7 @@ class CourseResourceTest {
     }
 
     /**
-     * Method under test: {@link CourseResource#addStudentToCourse(Long, java.util.List)}
+     * Method under test: {@link CourseResource#addStudentToCourse(Long, java.util.Set)}
      */
     @Test
     void testAddStudentToCourse() throws Exception {

@@ -48,7 +48,7 @@ public class CourseResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/courses")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'INSTRUCTOR')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<CourseDTO> createCourse(@Valid @RequestBody CourseDTO courseDTO) throws URISyntaxException, SystemException {
         log.debug("REST request to save Course : {}", courseDTO);
         if (courseDTO.getId() != null) {
@@ -63,7 +63,7 @@ public class CourseResource {
 
     @PostMapping("/course/{courseId}/add-student")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'INSTRUCTOR')")
-    public ResponseEntity<CourseDTO> addStudentToCourse(@PathVariable final Long courseId, final List<Long> studentIds) throws URISyntaxException, SystemException {
+    public ResponseEntity<CourseDTO> addStudentToCourse(@PathVariable final Long courseId, @RequestParam final Set<Long> studentIds) throws URISyntaxException, SystemException {
         log.debug("REST request to add Student(s) with id: {}, to course: {}", studentIds, courseId);
         CourseDTO result = courseService.assignStudentToCourse(courseId, studentIds);
         return ResponseEntity
@@ -73,8 +73,8 @@ public class CourseResource {
     }
 
     @PostMapping("/course/{courseId}/add-instructor")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'INSTRUCTOR')")
-    public ResponseEntity<CourseDTO> addInstructorToCourse(@PathVariable final Long courseId, final List<Long> instructorIds) throws URISyntaxException, SystemException {
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public ResponseEntity<CourseDTO> addInstructorToCourse(@PathVariable final Long courseId, @RequestParam final Set<Long> instructorIds) throws URISyntaxException, SystemException {
         log.debug("REST request to add Instructor(s) with id: {}, to course: {}", instructorIds, courseId);
         CourseDTO result = courseService.assignInstructorToCourse(courseId, instructorIds);
         return ResponseEntity

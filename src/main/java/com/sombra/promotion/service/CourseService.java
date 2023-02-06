@@ -15,6 +15,8 @@ public interface CourseService {
      */
     CourseDTO save(CourseDTO courseDTO);
 
+    CourseDTO saveOrUpdate(CourseDTO courseDTO);
+
     /**
      * Get all the courses.
      *
@@ -42,7 +44,7 @@ public interface CourseService {
      */
     void delete(Long id);
 
-    CourseDTO assignStudentToCourse(Long courseId, List<Long> studentIds);
+    CourseDTO assignStudentToCourse(Long courseId, Set<Long> studentIds);
 
-    CourseDTO assignInstructorToCourse(Long courseId, List<Long> instructorIds);
+    CourseDTO assignInstructorToCourse(Long courseId, Set<Long> instructorIds);
 }

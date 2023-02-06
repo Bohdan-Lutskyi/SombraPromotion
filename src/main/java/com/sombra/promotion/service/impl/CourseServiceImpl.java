@@ -46,6 +46,15 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public CourseDTO save(CourseDTO courseDTO) {
         log.debug("Request to save Course : {}", courseDTO);
+        if (courseRepository.findByName(courseDTO.getName()).isPresent()) {
+            throw new SystemException(String.format("Course with name %s already exist.", courseDTO.getName()), ErrorCode.BAD_REQUEST);
+        }
+        return saveOrUpdate(courseDTO);
+    }
+
+    @Override
+    public CourseDTO saveOrUpdate(CourseDTO courseDTO) {
+        log.debug("Request to save Course : {}", courseDTO);
         Course course = courseMapper.toEntity(courseDTO);
         verifyCourse(course);
         course = courseRepository.save(course);
@@ -98,23 +107,21 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public CourseDTO assignStudentToCourse(final Long courseId, final List<Long> studentIds) throws SystemException {
+    public CourseDTO assignStudentToCourse(final Long courseId, final Set<Long> studentIds) throws SystemException {
         final CourseDTO course = findByIdOrThrow(courseId);
-
-        course.getStudentIds().addAll(studentIds);
-        final CourseDTO save = this.save(course);
-
+        studentIds.addAll(course.getStudentIds());
+        course.setStudentIds(studentIds);
+        final CourseDTO save = this.saveOrUpdate(course);
         return save;
     }
 
     @Override
-    public CourseDTO assignInstructorToCourse(final Long courseId, final List<Long> instructorIds) throws SystemException {
+    public CourseDTO assignInstructorToCourse(final Long courseId, final Set<Long> instructorIds) throws SystemException {
         final CourseDTO course = findByIdOrThrow(courseId);
-
-        course.getInstructorIds().addAll(instructorIds);
-        final CourseDTO save = this.save(course);
-
-        return save;
+        instructorIds.addAll(course.getInstructorIds());
+        course.setInstructorIds(instructorIds);
+        final CourseDTO updated = this.saveOrUpdate(course);
+        return updated;
     }
 
     private void validateInstructors(final Set<Instructor> instructors) {
@@ -138,7 +145,7 @@ public class CourseServiceImpl implements CourseService {
         final List<Student> studentList = studentRepository.findAllById(students.stream().map(Student::getId).collect(Collectors.toSet()));
         final List<String> errorMessage = new ArrayList<>();
         studentList.forEach(student -> {
-            if (student.getCourses().size() > 5) {
+            if (student.getCourses().size() >= 5) {
                 errorMessage.add(String.format("User %s %s already has 5 courses.", student.getUser().getFirstName(), student.getUser().getSecondName()));
             }
         });
