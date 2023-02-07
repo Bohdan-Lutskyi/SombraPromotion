@@ -1,11 +1,13 @@
 package com.sombra.promotion.web.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sombra.promotion.config.SystemProperties;
 import com.sombra.promotion.config.error.SystemException;
 import com.sombra.promotion.domain.Course;
 import com.sombra.promotion.domain.Lesson;
 import com.sombra.promotion.domain.Student;
 import com.sombra.promotion.domain.User;
+import com.sombra.promotion.dto.CoursePassDTO;
 import com.sombra.promotion.dto.LessonDTO;
 import com.sombra.promotion.dto.StudentCourseDTO;
 import com.sombra.promotion.repository.*;
@@ -77,9 +79,10 @@ class LessonResourceTest {
         CourseMapperImpl courseMapper = new CourseMapperImpl();
         StudentRepository studentRepository1 = mock(StudentRepository.class);
         InstructorRepository instructorRepository = mock(InstructorRepository.class);
+        SystemProperties systemProperties = mock(SystemProperties.class);
         LessonResource lessonResource = new LessonResource(
                 new LessonServiceImpl(lessonRepository, lessonMapper, studentService, new CourseServiceImpl(courseRepository,
-                        courseMapper, studentRepository1, instructorRepository)),
+                        courseMapper, studentRepository1, instructorRepository), systemProperties),
                 mock(LessonRepository.class));
 
         LessonDTO lessonDTO = new LessonDTO();
@@ -116,9 +119,10 @@ class LessonResourceTest {
         CourseMapperImpl courseMapper = new CourseMapperImpl();
         StudentRepository studentRepository1 = mock(StudentRepository.class);
         InstructorRepository instructorRepository = mock(InstructorRepository.class);
+        SystemProperties systemProperties = mock(SystemProperties.class);
         LessonResource lessonResource = new LessonResource(
                 new LessonServiceImpl(lessonRepository, lessonMapper, studentService, new CourseServiceImpl(courseRepository,
-                        courseMapper, studentRepository1, instructorRepository)),
+                        courseMapper, studentRepository1, instructorRepository), systemProperties),
                 mock(LessonRepository.class));
         LessonDTO lessonDTO = mock(LessonDTO.class);
         when(lessonDTO.getId()).thenReturn(123L);
@@ -220,9 +224,10 @@ class LessonResourceTest {
         CourseMapperImpl courseMapper = new CourseMapperImpl();
         StudentRepository studentRepository1 = mock(StudentRepository.class);
         InstructorRepository instructorRepository = mock(InstructorRepository.class);
+        SystemProperties systemProperties = mock(SystemProperties.class);
         LessonResource lessonResource = new LessonResource(
                 new LessonServiceImpl(lessonRepository, lessonMapper, studentService, new CourseServiceImpl(courseRepository,
-                        courseMapper, studentRepository1, instructorRepository)),
+                        courseMapper, studentRepository1, instructorRepository), systemProperties),
                 mock(LessonRepository.class));
         LessonDTO lessonDTO = mock(LessonDTO.class);
         when(lessonDTO.getCourseId()).thenReturn(123L);
@@ -311,9 +316,10 @@ class LessonResourceTest {
         CourseMapperImpl courseMapper = new CourseMapperImpl();
         StudentRepository studentRepository1 = mock(StudentRepository.class);
         InstructorRepository instructorRepository = mock(InstructorRepository.class);
+        SystemProperties systemProperties = mock(SystemProperties.class);
         LessonResource lessonResource = new LessonResource(
                 new LessonServiceImpl(lessonRepository, lessonMapper, studentService, new CourseServiceImpl(courseRepository,
-                        courseMapper, studentRepository1, instructorRepository)),
+                        courseMapper, studentRepository1, instructorRepository), systemProperties),
                 mock(LessonRepository.class));
 
         LessonDTO lessonDTO = new LessonDTO();
@@ -437,7 +443,7 @@ class LessonResourceTest {
      */
     @Test
     void testGetFinalMarkForLesson() throws Exception {
-        when(this.lessonService.calculateFinalMark((StudentCourseDTO) any())).thenReturn(10.0d);
+        when(this.lessonService.calculateFinalMark((StudentCourseDTO) any())).thenReturn(new CoursePassDTO(10.0d, true, "You passed"));
 
         StudentCourseDTO studentCourseDTO = new StudentCourseDTO();
         studentCourseDTO.setCourseId(123L);

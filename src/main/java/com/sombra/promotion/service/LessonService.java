@@ -2,6 +2,7 @@ package com.sombra.promotion.service;
 
 
 import com.sombra.promotion.config.error.SystemException;
+import com.sombra.promotion.dto.CoursePassDTO;
 import com.sombra.promotion.dto.LessonDTO;
 import com.sombra.promotion.dto.StudentCourseDTO;
 
@@ -41,7 +42,7 @@ public interface LessonService {
      */
     void delete(Long id);
 
-    Double calculateFinalMark(StudentCourseDTO studentCourseDTO);
+    CoursePassDTO calculateFinalMark(StudentCourseDTO studentCourseDTO);
 
     LessonDTO findByIdOrThrow(Long id) throws SystemException;
 }

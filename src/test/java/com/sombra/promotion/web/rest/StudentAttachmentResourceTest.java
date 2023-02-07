@@ -2,6 +2,7 @@ package com.sombra.promotion.web.rest;
 
 import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.sombra.promotion.config.SystemProperties;
 import com.sombra.promotion.dto.StudentAttachmentDTO;
 import com.sombra.promotion.repository.*;
 import com.sombra.promotion.service.StudentAttachmentService;
@@ -59,8 +60,9 @@ class StudentAttachmentResourceTest {
         CourseMapperImpl courseMapper = new CourseMapperImpl();
         StudentRepository studentRepository1 = mock(StudentRepository.class);
         InstructorRepository instructorRepository = mock(InstructorRepository.class);
+        SystemProperties systemProperties = mock(SystemProperties.class);
         LessonServiceImpl lessonService = new LessonServiceImpl(lessonRepository, lessonMapper, studentService,
-                new CourseServiceImpl(courseRepository, courseMapper, studentRepository1, instructorRepository));
+                new CourseServiceImpl(courseRepository, courseMapper, studentRepository1, instructorRepository), systemProperties);
 
         LessonMapperImpl lessonMapper1 = new LessonMapperImpl();
         StudentAttachmentResource studentAttachmentResource = new StudentAttachmentResource(
