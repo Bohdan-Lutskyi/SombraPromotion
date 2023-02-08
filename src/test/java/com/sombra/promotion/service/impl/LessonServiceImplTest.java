@@ -1,5 +1,6 @@
 package com.sombra.promotion.service.impl;
 
+import com.sombra.promotion.config.SystemProperties;
 import com.sombra.promotion.config.error.ErrorCode;
 import com.sombra.promotion.config.error.SystemException;
 import com.sombra.promotion.domain.Course;
@@ -47,6 +48,8 @@ class LessonServiceImplTest {
 
     @MockBean
     private StudentService studentService;
+    @MockBean
+    private SystemProperties systemProperties;
 
     /**
      * Method under test: {@link LessonServiceImpl#save(LessonDTO)}
