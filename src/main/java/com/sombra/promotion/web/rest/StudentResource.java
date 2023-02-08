@@ -118,7 +118,7 @@ public class StudentResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the studentDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/students/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'INSTRUCTOR')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'INSTRUCTOR', 'STUDENT')")
     public ResponseEntity<StudentDTO> getStudent(@PathVariable Long id) {
         log.debug("REST request to get Student : {}", id);
         Optional<StudentDTO> studentDTO = studentService.findOne(id);

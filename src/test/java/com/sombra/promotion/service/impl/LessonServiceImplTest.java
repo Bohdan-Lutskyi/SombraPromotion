@@ -637,7 +637,7 @@ class LessonServiceImplTest {
         StudentCourseDTO studentCourseDTO = new StudentCourseDTO();
         studentCourseDTO.setCourseId(123L);
         studentCourseDTO.setStudentId(123L);
-        assertEquals(4.0d, this.lessonServiceImpl.calculateFinalMark(studentCourseDTO).doubleValue());
+        assertEquals(4.0d, this.lessonServiceImpl.calculateFinalMark(studentCourseDTO).getFinalMark().doubleValue());
         verify(this.studentService).getStudentOrThrow((Long) any());
         verify(this.lessonRepository).findByStudentIdAndCourseId((Long) any(), (Long) any());
         verify(this.courseService).findByIdOrThrow((Long) any());

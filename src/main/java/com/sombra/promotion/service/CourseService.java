@@ -1,7 +1,7 @@
 package com.sombra.promotion.service;
 
 import com.sombra.promotion.dto.CourseDTO;
-import com.sombra.promotion.dto.StudentDTO;
+import com.sombra.promotion.dto.RestrictedStudentDTO;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
@@ -15,6 +15,8 @@ public interface CourseService {
      */
     CourseDTO save(CourseDTO courseDTO);
 
+    CourseDTO saveOrUpdate(CourseDTO courseDTO);
+
     /**
      * Get all the courses.
      *
@@ -22,7 +24,7 @@ public interface CourseService {
      */
     List<CourseDTO> findAll();
 
-    Map<Long, Set<StudentDTO>> getAllStudentsPerCourse(Collection<Long> courseIds);
+    Map<Long, Set<RestrictedStudentDTO>> getAllStudentsPerCourse(Collection<Long> courseIds);
 
     /**
      * Get the "id" course.
@@ -42,7 +44,7 @@ public interface CourseService {
      */
     void delete(Long id);
 
-    CourseDTO assignStudentToCourse(Long courseId, List<Long> studentIds);
+    CourseDTO assignStudentToCourse(Long courseId, Set<Long> studentIds);
 
-    CourseDTO assignInstructorToCourse(Long courseId, List<Long> instructorIds);
+    CourseDTO assignInstructorToCourse(Long courseId, Set<Long> instructorIds);
 }

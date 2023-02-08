@@ -5,7 +5,7 @@ import com.sombra.promotion.dto.StudentDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -39,7 +39,7 @@ public interface StudentMapper extends EntityMapper<StudentDTO, Student> {
 
     default Set<Student> fromIds(Set<Long> ids) {
         if (ids.isEmpty()) {
-            return Collections.emptySet();
+            return new HashSet<>();
         }
         final Set<Student> students = ids.stream().map(this::fromId).collect(Collectors.toSet());
         return students;
@@ -54,7 +54,7 @@ public interface StudentMapper extends EntityMapper<StudentDTO, Student> {
 
     default Set<Long> fromStudents(Set<Student> students) {
         if (students == null || students.isEmpty()) {
-            return Collections.emptySet();
+            return new HashSet<>();
         }
         final Set<Long> ids = students.stream().map(this::fromStudent).collect(Collectors.toSet());
         return ids;

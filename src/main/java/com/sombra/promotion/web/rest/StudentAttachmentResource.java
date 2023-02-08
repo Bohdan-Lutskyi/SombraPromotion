@@ -3,6 +3,7 @@ package com.sombra.promotion.web.rest;
 
 import com.sombra.promotion.dto.StudentAttachmentDTO;
 import com.sombra.promotion.service.StudentAttachmentService;
+import com.sombra.promotion.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ByteArrayResource;
@@ -12,8 +13,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Optional;
+
 @RestController
-@RequestMapping("/api/attachment")
+@RequestMapping("/api")
 public class StudentAttachmentResource {
 
     private final Logger log = LoggerFactory.getLogger(CourseResource.class);
@@ -24,7 +27,7 @@ public class StudentAttachmentResource {
         this.studentAttachmentService = studentAttachmentService;
     }
 
-    @PostMapping("/upload/{lessonId}")
+    @PostMapping("/attachment/upload/{lessonId}")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'STUDENT')")
     public ResponseEntity<String> uploadFile(@PathVariable(value = "lessonId") final Long lessonId,
                                              @RequestParam(value = "file") final MultipartFile file) {
@@ -32,7 +35,15 @@ public class StudentAttachmentResource {
         return new ResponseEntity<>(studentAttachmentService.uploadFile(file, lessonId), HttpStatus.OK);
     }
 
-    @PostMapping("/download")
+    @GetMapping("/attachment/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'INSTRUCTOR', 'STUDENT')")
+    public ResponseEntity<StudentAttachmentDTO> getStudentAttachment(@PathVariable Long id) {
+        log.debug("REST request to get Course : {}", id);
+        Optional<StudentAttachmentDTO> studentAttachmentDTO = studentAttachmentService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(studentAttachmentDTO);
+    }
+
+    @PostMapping("/attachment/download")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<ByteArrayResource> downloadFile(@RequestBody final StudentAttachmentDTO attachmentDTO) {
         log.debug("REST request to get file with name: {}", attachmentDTO.getOriginalFileName());
@@ -46,7 +57,7 @@ public class StudentAttachmentResource {
                 .body(resource);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/attachment/delete")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'STUDENT')")
     public ResponseEntity<String> deleteFile(@RequestBody final StudentAttachmentDTO attachmentDTO) {
         log.debug("REST request to delete file with name: {}", attachmentDTO.getOriginalFileName());

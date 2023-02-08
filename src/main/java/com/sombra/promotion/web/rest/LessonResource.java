@@ -2,6 +2,7 @@ package com.sombra.promotion.web.rest;
 
 import com.sombra.promotion.config.error.ErrorCode;
 import com.sombra.promotion.config.error.SystemException;
+import com.sombra.promotion.dto.CoursePassDTO;
 import com.sombra.promotion.dto.LessonDTO;
 import com.sombra.promotion.dto.StudentCourseDTO;
 import com.sombra.promotion.repository.LessonRepository;
@@ -134,10 +135,10 @@ public class LessonResource {
 
     @PostMapping("/lessons/final-mark")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'INSTRUCTOR')")
-    public Double getFinalMarkForLesson(@RequestBody StudentCourseDTO studentCourseDTO) {
+    public ResponseEntity<CoursePassDTO> getFinalMarkForLesson(@RequestBody StudentCourseDTO studentCourseDTO) {
         log.debug("REST request to calculate final mark for course by student : {}", studentCourseDTO);
-        final Double finalMark = lessonService.calculateFinalMark(studentCourseDTO);
-        return finalMark;
+        final CoursePassDTO finalMark = lessonService.calculateFinalMark(studentCourseDTO);
+        return ResponseEntity.ok(finalMark);
     }
 
     /**

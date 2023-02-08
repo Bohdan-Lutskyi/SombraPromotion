@@ -10,6 +10,7 @@ import com.sombra.promotion.dto.CourseDTO;
 import com.sombra.promotion.repository.CourseRepository;
 import com.sombra.promotion.repository.InstructorRepository;
 import com.sombra.promotion.repository.StudentRepository;
+import com.sombra.promotion.service.CourseService;
 import com.sombra.promotion.service.mapper.CourseMapper;
 import com.sombra.promotion.service.mapper.StudentMapper;
 import org.junit.jupiter.api.Test;
@@ -512,7 +513,7 @@ class CourseServiceImplTest {
     }
 
     /**
-     * Method under test: {@link CourseServiceImpl#assignStudentToCourse(Long, java.util.List)}
+     * Method under test: {@link CourseService#assignStudentToCourse(Long, Set)}
      */
     @Test
     void testAssignStudentToCourse() throws SystemException {
@@ -552,14 +553,14 @@ class CourseServiceImplTest {
         course1.setStudents(new HashSet<>());
         when(this.courseMapper.toEntity((CourseDTO) any())).thenReturn(course1);
         when(this.courseMapper.toDto((Course) any())).thenReturn(courseDTO);
-        assertThrows(SystemException.class, () -> this.courseServiceImpl.assignStudentToCourse(123L, new ArrayList<>()));
+        assertThrows(SystemException.class, () -> this.courseServiceImpl.assignStudentToCourse(123L, new HashSet<>()));
         verify(this.courseRepository).findById((Long) any());
         verify(this.courseMapper).toEntity((CourseDTO) any());
         verify(this.courseMapper).toDto((Course) any());
     }
 
     /**
-     * Method under test: {@link CourseServiceImpl#assignStudentToCourse(Long, java.util.List)}
+     * Method under test: {@link CourseService#assignStudentToCourse(Long, Set)}
      */
     @Test
     void testAssignStudentToCourse2() throws SystemException {
@@ -588,12 +589,12 @@ class CourseServiceImplTest {
         course.setStudents(new HashSet<>());
         when(this.courseMapper.toEntity((CourseDTO) any())).thenReturn(course);
         when(this.courseMapper.toDto((Course) any())).thenReturn(courseDTO);
-        assertThrows(SystemException.class, () -> this.courseServiceImpl.assignStudentToCourse(123L, new ArrayList<>()));
+        assertThrows(SystemException.class, () -> this.courseServiceImpl.assignStudentToCourse(123L, new HashSet<>()));
         verify(this.courseRepository).findById((Long) any());
     }
 
     /**
-     * Method under test: {@link CourseServiceImpl#assignStudentToCourse(Long, java.util.List)}
+     * Method under test: {@link CourseService#assignStudentToCourse(Long, Set)}
      */
     @Test
     void testAssignStudentToCourse3() throws SystemException {
@@ -671,7 +672,7 @@ class CourseServiceImplTest {
         course2.setStudents(new HashSet<>());
         when(this.courseMapper.toEntity((CourseDTO) any())).thenReturn(course2);
         when(this.courseMapper.toDto((Course) any())).thenReturn(courseDTO);
-        assertSame(courseDTO, this.courseServiceImpl.assignStudentToCourse(123L, new ArrayList<>()));
+        assertSame(courseDTO, this.courseServiceImpl.assignStudentToCourse(123L, new HashSet<>()));
         verify(this.instructorRepository).existsById((Long) any());
         verify(this.courseRepository).save((Course) any());
         verify(this.courseRepository).findById((Long) any());
@@ -680,7 +681,7 @@ class CourseServiceImplTest {
     }
 
     /**
-     * Method under test: {@link CourseServiceImpl#assignStudentToCourse(Long, java.util.List)}
+     * Method under test: {@link CourseService#assignStudentToCourse(Long, Set)}
      */
     @Test
     void testAssignStudentToCourse4() throws SystemException {
@@ -748,7 +749,7 @@ class CourseServiceImplTest {
         course1.setStudents(new HashSet<>());
         when(this.courseMapper.toEntity((CourseDTO) any())).thenReturn(course1);
         when(this.courseMapper.toDto((Course) any())).thenReturn(courseDTO);
-        assertThrows(SystemException.class, () -> this.courseServiceImpl.assignStudentToCourse(123L, new ArrayList<>()));
+        assertThrows(SystemException.class, () -> this.courseServiceImpl.assignStudentToCourse(123L, new HashSet<>()));
         verify(this.instructorRepository).existsById((Long) any());
         verify(this.courseRepository).save((Course) any());
         verify(this.courseRepository).findById((Long) any());
@@ -757,7 +758,7 @@ class CourseServiceImplTest {
     }
 
     /**
-     * Method under test: {@link CourseServiceImpl#assignStudentToCourse(Long, java.util.List)}
+     * Method under test: {@link CourseService#assignStudentToCourse(Long, Set)}
      */
     @Test
     void testAssignStudentToCourse5() throws SystemException {
@@ -835,7 +836,7 @@ class CourseServiceImplTest {
         course2.setStudents(new HashSet<>());
         when(this.courseMapper.toEntity((CourseDTO) any())).thenReturn(course2);
         when(this.courseMapper.toDto((Course) any())).thenReturn(courseDTO);
-        assertThrows(SystemException.class, () -> this.courseServiceImpl.assignStudentToCourse(123L, new ArrayList<>()));
+        assertThrows(SystemException.class, () -> this.courseServiceImpl.assignStudentToCourse(123L, new HashSet<>()));
         verify(this.instructorRepository).existsById((Long) any());
         verify(this.courseRepository).findById((Long) any());
         verify(this.courseMapper).toEntity((CourseDTO) any());
@@ -843,7 +844,7 @@ class CourseServiceImplTest {
     }
 
     /**
-     * Method under test: {@link CourseServiceImpl#assignInstructorToCourse(Long, java.util.List)}
+     * Method under test: {@link CourseService#assignInstructorToCourse(Long, Set)}
      */
     @Test
     void testAssignInstructorToCourse() throws SystemException {
@@ -883,14 +884,14 @@ class CourseServiceImplTest {
         course1.setStudents(new HashSet<>());
         when(this.courseMapper.toEntity((CourseDTO) any())).thenReturn(course1);
         when(this.courseMapper.toDto((Course) any())).thenReturn(courseDTO);
-        assertThrows(SystemException.class, () -> this.courseServiceImpl.assignInstructorToCourse(123L, new ArrayList<>()));
+        assertThrows(SystemException.class, () -> this.courseServiceImpl.assignInstructorToCourse(123L, new HashSet<>()));
         verify(this.courseRepository).findById((Long) any());
         verify(this.courseMapper).toEntity((CourseDTO) any());
         verify(this.courseMapper).toDto((Course) any());
     }
 
     /**
-     * Method under test: {@link CourseServiceImpl#assignInstructorToCourse(Long, java.util.List)}
+     * Method under test: {@link CourseService#assignInstructorToCourse(Long, Set)}
      */
     @Test
     void testAssignInstructorToCourse2() throws SystemException {
@@ -919,12 +920,12 @@ class CourseServiceImplTest {
         course.setStudents(new HashSet<>());
         when(this.courseMapper.toEntity((CourseDTO) any())).thenReturn(course);
         when(this.courseMapper.toDto((Course) any())).thenReturn(courseDTO);
-        assertThrows(SystemException.class, () -> this.courseServiceImpl.assignInstructorToCourse(123L, new ArrayList<>()));
+        assertThrows(SystemException.class, () -> this.courseServiceImpl.assignInstructorToCourse(123L, new HashSet<>()));
         verify(this.courseRepository).findById((Long) any());
     }
 
     /**
-     * Method under test: {@link CourseServiceImpl#assignInstructorToCourse(Long, java.util.List)}
+     * Method under test: {@link CourseService#assignInstructorToCourse(Long, Set)}
      */
     @Test
     void testAssignInstructorToCourse3() throws SystemException {
@@ -1002,7 +1003,7 @@ class CourseServiceImplTest {
         course2.setStudents(new HashSet<>());
         when(this.courseMapper.toEntity((CourseDTO) any())).thenReturn(course2);
         when(this.courseMapper.toDto((Course) any())).thenReturn(courseDTO);
-        assertSame(courseDTO, this.courseServiceImpl.assignInstructorToCourse(123L, new ArrayList<>()));
+        assertSame(courseDTO, this.courseServiceImpl.assignInstructorToCourse(123L, new HashSet<>()));
         verify(this.instructorRepository).existsById((Long) any());
         verify(this.courseRepository).save((Course) any());
         verify(this.courseRepository).findById((Long) any());
@@ -1011,7 +1012,7 @@ class CourseServiceImplTest {
     }
 
     /**
-     * Method under test: {@link CourseServiceImpl#assignInstructorToCourse(Long, java.util.List)}
+     * Method under test: {@link CourseService#assignInstructorToCourse(Long, Set)}
      */
     @Test
     void testAssignInstructorToCourse4() throws SystemException {
@@ -1079,7 +1080,7 @@ class CourseServiceImplTest {
         course1.setStudents(new HashSet<>());
         when(this.courseMapper.toEntity((CourseDTO) any())).thenReturn(course1);
         when(this.courseMapper.toDto((Course) any())).thenReturn(courseDTO);
-        assertThrows(SystemException.class, () -> this.courseServiceImpl.assignInstructorToCourse(123L, new ArrayList<>()));
+        assertThrows(SystemException.class, () -> this.courseServiceImpl.assignInstructorToCourse(123L, new HashSet<>()));
         verify(this.instructorRepository).existsById((Long) any());
         verify(this.courseRepository).save((Course) any());
         verify(this.courseRepository).findById((Long) any());
@@ -1088,7 +1089,7 @@ class CourseServiceImplTest {
     }
 
     /**
-     * Method under test: {@link CourseServiceImpl#assignInstructorToCourse(Long, java.util.List)}
+     * Method under test: {@link CourseService#assignInstructorToCourse(Long, Set)}
      */
     @Test
     void testAssignInstructorToCourse5() throws SystemException {
@@ -1166,7 +1167,7 @@ class CourseServiceImplTest {
         course2.setStudents(new HashSet<>());
         when(this.courseMapper.toEntity((CourseDTO) any())).thenReturn(course2);
         when(this.courseMapper.toDto((Course) any())).thenReturn(courseDTO);
-        assertThrows(SystemException.class, () -> this.courseServiceImpl.assignInstructorToCourse(123L, new ArrayList<>()));
+        assertThrows(SystemException.class, () -> this.courseServiceImpl.assignInstructorToCourse(123L, new HashSet<>()));
         verify(this.instructorRepository).existsById((Long) any());
         verify(this.courseRepository).findById((Long) any());
         verify(this.courseMapper).toEntity((CourseDTO) any());

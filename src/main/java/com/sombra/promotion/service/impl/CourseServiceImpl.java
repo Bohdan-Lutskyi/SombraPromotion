@@ -6,13 +6,12 @@ import com.sombra.promotion.domain.Course;
 import com.sombra.promotion.domain.Instructor;
 import com.sombra.promotion.domain.Student;
 import com.sombra.promotion.dto.CourseDTO;
-import com.sombra.promotion.dto.StudentDTO;
+import com.sombra.promotion.dto.RestrictedStudentDTO;
 import com.sombra.promotion.repository.CourseRepository;
 import com.sombra.promotion.repository.InstructorRepository;
 import com.sombra.promotion.repository.StudentRepository;
 import com.sombra.promotion.service.CourseService;
 import com.sombra.promotion.service.mapper.CourseMapper;
-import com.sombra.promotion.service.mapper.StudentMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -31,20 +30,26 @@ public class CourseServiceImpl implements CourseService {
     private final CourseMapper courseMapper;
     private final StudentRepository studentRepository;
     private final InstructorRepository instructorRepository;
-    private final StudentMapper studentMapper;
 
     public CourseServiceImpl(final CourseRepository courseRepository, final CourseMapper courseMapper,
-                             final StudentRepository studentRepository, final InstructorRepository instructorRepository,
-                             final StudentMapper studentMapper) {
+                             final StudentRepository studentRepository, final InstructorRepository instructorRepository) {
         this.courseRepository = courseRepository;
         this.courseMapper = courseMapper;
         this.studentRepository = studentRepository;
         this.instructorRepository = instructorRepository;
-        this.studentMapper = studentMapper;
     }
 
     @Override
     public CourseDTO save(CourseDTO courseDTO) {
+        log.debug("Request to save Course : {}", courseDTO);
+        if (courseRepository.findByName(courseDTO.getName()).isPresent()) {
+            throw new SystemException(String.format("Course with name %s already exist.", courseDTO.getName()), ErrorCode.BAD_REQUEST);
+        }
+        return saveOrUpdate(courseDTO);
+    }
+
+    @Override
+    public CourseDTO saveOrUpdate(CourseDTO courseDTO) {
         log.debug("Request to save Course : {}", courseDTO);
         Course course = courseMapper.toEntity(courseDTO);
         verifyCourse(course);
@@ -66,13 +71,19 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     @Transactional(readOnly = true)
-    public Map<Long, Set<StudentDTO>> getAllStudentsPerCourse(final Collection<Long> courseIds) {
+    public Map<Long, Set<RestrictedStudentDTO>> getAllStudentsPerCourse(final Collection<Long> courseIds) {
         log.debug("Request to get all Students");
         final List<Course> courses = courseRepository.findAllByIdIn(courseIds);
-        final Map<Long, Set<StudentDTO>> courseUserMap = courses.stream()
-                .collect(Collectors.toMap(Course::getId, c -> studentMapper.toDto(c.getStudents())));
+        final Map<Long, Set<RestrictedStudentDTO>> courseUserMap = courses.stream()
+                .collect(Collectors.toMap(Course::getId, c -> toRestrictedStudentDTO(c.getStudents())));
 
         return courseUserMap;
+    }
+
+    private Set<RestrictedStudentDTO> toRestrictedStudentDTO(final Set<Student> students) {
+        return students.stream()
+                .map(RestrictedStudentDTO::new)
+                .collect(Collectors.toSet());
     }
 
     @Override
@@ -98,23 +109,19 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public CourseDTO assignStudentToCourse(final Long courseId, final List<Long> studentIds) throws SystemException {
+    public CourseDTO assignStudentToCourse(final Long courseId, final Set<Long> studentIds) throws SystemException {
         final CourseDTO course = findByIdOrThrow(courseId);
-
         course.getStudentIds().addAll(studentIds);
-        final CourseDTO save = this.save(course);
-
+        final CourseDTO save = this.saveOrUpdate(course);
         return save;
     }
 
     @Override
-    public CourseDTO assignInstructorToCourse(final Long courseId, final List<Long> instructorIds) throws SystemException {
+    public CourseDTO assignInstructorToCourse(final Long courseId, final Set<Long> instructorIds) throws SystemException {
         final CourseDTO course = findByIdOrThrow(courseId);
-
         course.getInstructorIds().addAll(instructorIds);
-        final CourseDTO save = this.save(course);
-
-        return save;
+        final CourseDTO updated = this.saveOrUpdate(course);
+        return updated;
     }
 
     private void validateInstructors(final Set<Instructor> instructors) {
@@ -138,7 +145,7 @@ public class CourseServiceImpl implements CourseService {
         final List<Student> studentList = studentRepository.findAllById(students.stream().map(Student::getId).collect(Collectors.toSet()));
         final List<String> errorMessage = new ArrayList<>();
         studentList.forEach(student -> {
-            if (student.getCourses().size() > 5) {
+            if (student.getCourses().size() >= 5) {
                 errorMessage.add(String.format("User %s %s already has 5 courses.", student.getUser().getFirstName(), student.getUser().getSecondName()));
             }
         });

@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -63,6 +64,13 @@ public class StudentAttachmentServiceImpl implements StudentAttachmentService {
         saveStudentAttachment(file.getOriginalFilename(), fileName, lessonDTO);
         fileObj.delete();
         return "File uploaded : " + fileName;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<StudentAttachmentDTO> findOne(final Long id) {
+        log.debug("Request to get StudentAttachment : {}", id);
+        return studentAttachmentRepository.findById(id).map(studentAttachmentMapper::toDto);
     }
 
     private void saveStudentAttachment(final String name, final String fileName, final LessonDTO lessonDTO) {

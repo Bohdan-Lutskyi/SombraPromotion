@@ -51,7 +51,7 @@ class CourseResourceTest {
     private CourseService courseService;
 
     /**
-     * Method under test: {@link CourseResource#addInstructorToCourse(Long, java.util.List)}
+     * Method under test: {@link CourseResource#addInstructorToCourse(Long, java.util.Set)}
      */
     @Test
     void testAddInstructorToCourse() throws Exception {
@@ -73,7 +73,7 @@ class CourseResourceTest {
         StudentRepository studentRepository = mock(StudentRepository.class);
         InstructorRepository instructorRepository = mock(InstructorRepository.class);
         CourseResource courseResource = new CourseResource(new CourseServiceImpl(courseRepository, courseMapper,
-                studentRepository, instructorRepository, new StudentMapperImpl()), mock(CourseRepository.class));
+                studentRepository, instructorRepository), mock(CourseRepository.class));
 
         CourseDTO courseDTO = new CourseDTO();
         courseDTO.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
@@ -192,8 +192,8 @@ class CourseResourceTest {
         StudentRepository studentRepository = mock(StudentRepository.class);
 
         CourseResource courseResource = new CourseResource(new CourseServiceImpl(courseRepository, courseMapperImpl,
-                studentRepository, instructorRepository, new StudentMapperImpl()), mock(CourseRepository.class));
-        courseResource.addStudentToCourse(123L, new ArrayList<>());
+                studentRepository, instructorRepository), mock(CourseRepository.class));
+        courseResource.addStudentToCourse(123L, new HashSet<>());
 
         CourseDTO courseDTO1 = new CourseDTO();
         courseDTO1.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
@@ -243,7 +243,7 @@ class CourseResourceTest {
         StudentRepository studentRepository = mock(StudentRepository.class);
         InstructorRepository instructorRepository = mock(InstructorRepository.class);
         CourseResource courseResource = new CourseResource(new CourseServiceImpl(courseRepository, courseMapper,
-                studentRepository, instructorRepository, new StudentMapperImpl()), mock(CourseRepository.class));
+                studentRepository, instructorRepository), mock(CourseRepository.class));
 
         CourseDTO courseDTO = new CourseDTO();
         courseDTO.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
@@ -367,7 +367,7 @@ class CourseResourceTest {
     }
 
     /**
-     * Method under test: {@link CourseResource#addInstructorToCourse(Long, java.util.List)}
+     * Method under test: {@link CourseResource#addInstructorToCourse(Long, java.util.Set)}
      */
     @Test
     void testAddInstructorToCourse2() throws Exception {
@@ -379,7 +379,7 @@ class CourseResourceTest {
     }
 
     /**
-     * Method under test: {@link CourseResource#addStudentToCourse(Long, java.util.List)}
+     * Method under test: {@link CourseResource#addStudentToCourse(Long, java.util.Set)}
      */
     @Test
     void testAddStudentToCourse() throws Exception {

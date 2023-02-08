@@ -43,3 +43,7 @@ application:
 
 jwt:
   secret: promotion
+
+system:
+  default:
+    pass-course-threshold-value: 8
