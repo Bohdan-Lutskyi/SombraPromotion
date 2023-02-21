@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 public class PromotionApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PromotionApplication.class,7 args);
+		SpringApplication.run(PromotionApplication.class, args);
 	}
 
 }
