@@ -32,7 +32,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link CourseResource} REST controller.
  */
 @ApiTestConfiguration
-@WithMockUser(roles = {"ADMIN"})
 class CourseIT {
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";

@@ -34,6 +34,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -44,8 +45,10 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import static org.hamcrest.Matchers.hasItem;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @ContextConfiguration(classes = {LessonResource.class})
 @ExtendWith(SpringExtension.class)
@@ -275,10 +278,10 @@ class LessonResourceTest {
         assertEquals(123L, body.getStudentId().longValue());
         assertTrue(body.getStudentAttachmentIds().isEmpty());
         verify(lessonRepository).save((Lesson) any());
-        verify(lessonDTO).getCourseId();
+        verify(lessonDTO, atLeast(2)).getCourseId();
         verify(lessonDTO, atLeast(1)).getId();
-        verify(lessonDTO).getStudentId();
-        verify(lessonDTO).getLessonNumber();
+        verify(lessonDTO, atLeast(2)).getStudentId();
+        verify(lessonDTO, atLeast(2)).getLessonNumber();
         verify(lessonDTO).getMark();
         verify(lessonDTO).getCreatedBy();
         verify(lessonDTO).getModifiedBy();
@@ -443,7 +446,8 @@ class LessonResourceTest {
      */
     @Test
     void testGetFinalMarkForLesson() throws Exception {
-        when(this.lessonService.calculateFinalMark((StudentCourseDTO) any())).thenReturn(new CoursePassDTO(10.0d, true, "You passed"));
+        CoursePassDTO coursePassDTO = new CoursePassDTO(10.0d, true, "You passed");
+        when(this.lessonService.calculateFinalMark((StudentCourseDTO) any())).thenReturn(coursePassDTO);
 
         StudentCourseDTO studentCourseDTO = new StudentCourseDTO();
         studentCourseDTO.setCourseId(123L);
@@ -457,7 +461,10 @@ class LessonResourceTest {
                 .perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-                .andExpect(MockMvcResultMatchers.content().string("10.0"));
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(jsonPath("$.finalMark").value(coursePassDTO.getFinalMark()))
+                .andExpect(jsonPath("$.message").value(coursePassDTO.getMessage()))
+                .andExpect(jsonPath("$.coursePassed").value(coursePassDTO.isCoursePassed()));
     }
 
     /**

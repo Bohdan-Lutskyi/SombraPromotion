@@ -92,7 +92,7 @@ public class LessonResource {
             throw new SystemException("Entity not found", ErrorCode.BAD_REQUEST);
         }
 
-        LessonDTO result = lessonService.save(lessonDTO);
+        LessonDTO result = lessonService.update(lessonDTO);
         return ResponseEntity
                 .ok()
                 .headers(HeaderUtil.createEntityUpdateAlert("applicationName", true, ENTITY_NAME, lessonDTO.getId().toString()))

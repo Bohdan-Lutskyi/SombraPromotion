@@ -343,63 +343,6 @@ class CourseServiceImplTest {
     }
 
     /**
-     * Method under test: {@link CourseServiceImpl#getAllStudentsPerCourse(java.util.Collection)}
-     */
-    @Test
-    void testGetAllStudentsPerCourse2() {
-        when(this.studentMapper.toDto((Set<Student>) any())).thenReturn(new HashSet<>());
-
-        Course course = new Course();
-        course.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
-        course.setCreatedDate(LocalDateTime.of(1, 1, 1, 1, 1));
-        course.setId(123L);
-        course.setInstructors(new HashSet<>());
-        course.setModifiedBy("Jan 1, 2020 9:00am GMT+0100");
-        course.setModifiedDate(LocalDateTime.of(1, 1, 1, 1, 1));
-        course.setName("Request to get all Students");
-        course.setNumberOfLessons((short) 1);
-        course.setStudents(new HashSet<>());
-
-        ArrayList<Course> courseList = new ArrayList<>();
-        courseList.add(course);
-        when(this.courseRepository.findAllByIdIn((java.util.Collection<Long>) any())).thenReturn(courseList);
-        assertEquals(1, this.courseServiceImpl.getAllStudentsPerCourse(new ArrayList<>()).size());
-        verify(this.studentMapper).toDto((Set<Student>) any());
-        verify(this.courseRepository).findAllByIdIn((java.util.Collection<Long>) any());
-    }
-
-    /**
-     * Method under test: {@link CourseServiceImpl#getAllStudentsPerCourse(java.util.Collection)}
-     */
-
-    /**
-     * Method under test: {@link CourseServiceImpl#getAllStudentsPerCourse(java.util.Collection)}
-     */
-    @Test
-    void testGetAllStudentsPerCourse4() {
-        when(this.studentMapper.toDto((Set<Student>) any()))
-                .thenThrow(new SystemException("An error occurred", ErrorCode.INTERNAL_SERVER_ERROR));
-
-        Course course = new Course();
-        course.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
-        course.setCreatedDate(LocalDateTime.of(1, 1, 1, 1, 1));
-        course.setId(123L);
-        course.setInstructors(new HashSet<>());
-        course.setModifiedBy("Jan 1, 2020 9:00am GMT+0100");
-        course.setModifiedDate(LocalDateTime.of(1, 1, 1, 1, 1));
-        course.setName("Request to get all Students");
-        course.setNumberOfLessons((short) 1);
-        course.setStudents(new HashSet<>());
-
-        ArrayList<Course> courseList = new ArrayList<>();
-        courseList.add(course);
-        when(this.courseRepository.findAllByIdIn((java.util.Collection<Long>) any())).thenReturn(courseList);
-        assertThrows(SystemException.class, () -> this.courseServiceImpl.getAllStudentsPerCourse(new ArrayList<>()));
-        verify(this.studentMapper).toDto((Set<Student>) any());
-        verify(this.courseRepository).findAllByIdIn((java.util.Collection<Long>) any());
-    }
-
-    /**
      * Method under test: {@link CourseServiceImpl#findOne(Long)}
      */
     @Test

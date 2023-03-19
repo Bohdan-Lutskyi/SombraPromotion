@@ -32,7 +32,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link InstructorResource} REST controller.
  */
 @ApiTestConfiguration
-@WithMockUser(roles = {"ADMIN"})
 class InstructorIT {
 
     private static final String DEFAULT_USER_ROLE = UserRole.INSTRUCTOR.name();

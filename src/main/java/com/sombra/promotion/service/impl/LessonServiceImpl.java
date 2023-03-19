@@ -57,6 +57,21 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
+    public LessonDTO update(final LessonDTO lessonDTO) {
+        log.debug("Request to save Lesson : {}", lessonDTO);
+        Optional<Lesson> lessonFromDb = lessonRepository.findByStudentIdAndCourseIdAndLessonNumber(lessonDTO.getStudentId(), lessonDTO.getCourseId(), lessonDTO.getLessonNumber());
+        if (lessonFromDb.isEmpty()) {
+            throw new SystemException(String.format("Lesson with number %s, for student %s and course %s not exist.",
+                    lessonFromDb.get().getLessonNumber(), lessonFromDb.get().getStudent().getUser().getEmail(),
+                    lessonFromDb.get().getCourse().getName()),
+                    ErrorCode.BAD_REQUEST);
+        }
+        Lesson lesson = lessonMapper.toEntity(lessonDTO);
+        lesson = lessonRepository.save(lesson);
+        return lessonMapper.toDto(lesson);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public List<LessonDTO> findAll() {
         log.debug("Request to get all Students");

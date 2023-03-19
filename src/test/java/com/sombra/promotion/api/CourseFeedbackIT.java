@@ -32,7 +32,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link CourseFeedbackResource} REST controller.
  */
 @ApiTestConfiguration
-@WithMockUser(roles = {"ADMIN"})
 class CourseFeedbackIT {
 
     private static final String DEFAULT_FEEDBACK = "AAAAAAAAAA";

@@ -18,6 +18,8 @@ public interface LessonService {
      */
     LessonDTO save(LessonDTO lessonDTO);
 
+    LessonDTO update(LessonDTO lessonDTO);
+
     /**
      * Get all the lessons.
      *

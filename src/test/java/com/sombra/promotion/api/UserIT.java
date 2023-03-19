@@ -41,7 +41,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link UserResource} REST controller.
  */
 @ApiTestConfiguration
-@WithMockUser(roles = {"ADMIN"})
 class UserIT {
 
     public static final String UPDATED_FIRST_NAME = "Test";
