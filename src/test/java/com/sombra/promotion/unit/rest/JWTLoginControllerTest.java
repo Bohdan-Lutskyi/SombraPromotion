@@ -1,8 +1,9 @@
-package com.sombra.promotion.web.rest;
+package com.sombra.promotion.unit.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sombra.promotion.dto.UserDTO;
 import com.sombra.promotion.service.SecurityService;
+import com.sombra.promotion.web.rest.JWTLoginController;
 import com.sombra.promotion.web.rest.dto.LoginDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

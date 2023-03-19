@@ -1,9 +1,7 @@
 package com.sombra.promotion.dto;
 
 import com.sombra.promotion.domain.enumeration.UserRole;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -13,6 +11,7 @@ import java.util.Set;
 @Data
 @EqualsAndHashCode(of = "id", callSuper = false)
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserDTO extends BaseDTO implements Serializable {
 
     private Long id;

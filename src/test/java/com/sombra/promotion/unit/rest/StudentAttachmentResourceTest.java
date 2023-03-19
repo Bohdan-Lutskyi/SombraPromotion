@@ -1,4 +1,4 @@
-package com.sombra.promotion.web.rest;
+package com.sombra.promotion.unit.rest;
 
 import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3Client;
@@ -8,6 +8,7 @@ import com.sombra.promotion.repository.*;
 import com.sombra.promotion.service.StudentAttachmentService;
 import com.sombra.promotion.service.impl.*;
 import com.sombra.promotion.service.mapper.*;
+import com.sombra.promotion.web.rest.StudentAttachmentResource;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

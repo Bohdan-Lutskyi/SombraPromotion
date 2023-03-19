@@ -1,4 +1,4 @@
-package com.sombra.promotion.api;
+package com.sombra.promotion.integration;
 
 import com.sombra.promotion.domain.Student;
 import com.sombra.promotion.domain.enumeration.UserRole;
@@ -13,7 +13,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 

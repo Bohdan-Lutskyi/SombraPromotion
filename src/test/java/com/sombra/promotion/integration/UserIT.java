@@ -1,4 +1,4 @@
-package com.sombra.promotion.api;
+package com.sombra.promotion.integration;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.sombra.promotion.domain.Student;

@@ -1,8 +1,9 @@
-package com.sombra.promotion.service.impl;
+package com.sombra.promotion.unit.service.impl;
 
 import com.sombra.promotion.config.security.TokenProvider;
 import com.sombra.promotion.dto.UserDTO;
 import com.sombra.promotion.service.UserService;
+import com.sombra.promotion.service.impl.SecurityServiceImpl;
 import com.sombra.promotion.web.rest.dto.LoginDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

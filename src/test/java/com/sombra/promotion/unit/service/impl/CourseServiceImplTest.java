@@ -1,4 +1,4 @@
-package com.sombra.promotion.service.impl;
+package com.sombra.promotion.unit.service.impl;
 
 import com.sombra.promotion.config.error.ErrorCode;
 import com.sombra.promotion.config.error.SystemException;
@@ -11,6 +11,7 @@ import com.sombra.promotion.repository.CourseRepository;
 import com.sombra.promotion.repository.InstructorRepository;
 import com.sombra.promotion.repository.StudentRepository;
 import com.sombra.promotion.service.CourseService;
+import com.sombra.promotion.service.impl.CourseServiceImpl;
 import com.sombra.promotion.service.mapper.CourseMapper;
 import com.sombra.promotion.service.mapper.StudentMapper;
 import org.junit.jupiter.api.Test;

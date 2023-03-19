@@ -1,4 +1,4 @@
-package com.sombra.promotion.web.rest;
+package com.sombra.promotion.unit.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sombra.promotion.config.SystemProperties;
@@ -20,6 +20,7 @@ import com.sombra.promotion.service.mapper.CourseMapperImpl;
 import com.sombra.promotion.service.mapper.LessonMapperImpl;
 import com.sombra.promotion.service.mapper.StudentMapperImpl;
 import com.sombra.promotion.service.mapper.UserMapperImpl;
+import com.sombra.promotion.web.rest.LessonResource;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

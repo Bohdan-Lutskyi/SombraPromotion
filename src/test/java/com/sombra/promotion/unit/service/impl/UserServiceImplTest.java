@@ -1,4 +1,4 @@
-package com.sombra.promotion.service.impl;
+package com.sombra.promotion.unit.service.impl;
 
 import com.sombra.promotion.config.error.ErrorCode;
 import com.sombra.promotion.config.error.SystemException;
@@ -6,6 +6,7 @@ import com.sombra.promotion.domain.User;
 import com.sombra.promotion.domain.enumeration.UserRole;
 import com.sombra.promotion.dto.UserDTO;
 import com.sombra.promotion.repository.UserRepository;
+import com.sombra.promotion.service.impl.UserServiceImpl;
 import com.sombra.promotion.service.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

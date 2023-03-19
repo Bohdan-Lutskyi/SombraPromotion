@@ -2,8 +2,10 @@ package com.sombra.promotion.util;
 
 import com.sombra.promotion.domain.*;
 import com.sombra.promotion.domain.enumeration.UserRole;
+import com.sombra.promotion.dto.UserDTO;
 import com.sombra.promotion.repository.*;
 import com.sombra.promotion.service.SecurityService;
+import com.sombra.promotion.util.JacksonUtil;
 import com.sombra.promotion.web.rest.dto.LoginDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -103,6 +105,10 @@ public class TestUtil {
         final Instructor instructor = new Instructor();
         instructor.setUser(user);
         return instructor;
+    }
+
+    public static UserDTO getTestAdminUserDTO() {
+        return new UserDTO(null, DEFAULT_ADMIN_EMAIL, DEFAULT_FIRST_NAME, DEFAULT_SECOND_ADMIN_NAME, Collections.singleton(UserRole.ADMIN));
     }
 
     public User createTestAdmin() {

@@ -1,4 +1,4 @@
-package com.sombra.promotion.service.impl;
+package com.sombra.promotion.unit.service.impl;
 
 import com.sombra.promotion.domain.Course;
 import com.sombra.promotion.domain.CourseFeedback;
@@ -10,6 +10,7 @@ import com.sombra.promotion.dto.StudentDTO;
 import com.sombra.promotion.repository.CourseFeedbackRepository;
 import com.sombra.promotion.service.CourseService;
 import com.sombra.promotion.service.StudentService;
+import com.sombra.promotion.service.impl.CourseFeedbackServiceImpl;
 import com.sombra.promotion.service.mapper.CourseFeedbackMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

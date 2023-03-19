@@ -1,4 +1,4 @@
-package com.sombra.promotion.web.rest;
+package com.sombra.promotion.unit.rest;
 
 import com.sombra.promotion.config.error.SystemException;
 import com.sombra.promotion.domain.User;
@@ -11,6 +11,7 @@ import com.sombra.promotion.service.impl.InstructorServiceImpl;
 import com.sombra.promotion.service.impl.UserServiceImpl;
 import com.sombra.promotion.service.mapper.InstructorMapperImpl;
 import com.sombra.promotion.service.mapper.UserMapperImpl;
+import com.sombra.promotion.web.rest.InstructorResource;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

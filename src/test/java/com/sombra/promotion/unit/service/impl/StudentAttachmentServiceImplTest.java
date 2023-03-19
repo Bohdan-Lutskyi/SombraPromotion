@@ -1,4 +1,4 @@
-package com.sombra.promotion.service.impl;
+package com.sombra.promotion.unit.service.impl;
 
 import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3;
@@ -10,6 +10,7 @@ import com.sombra.promotion.domain.*;
 import com.sombra.promotion.dto.StudentAttachmentDTO;
 import com.sombra.promotion.repository.StudentAttachmentRepository;
 import com.sombra.promotion.service.LessonService;
+import com.sombra.promotion.service.impl.StudentAttachmentServiceImpl;
 import com.sombra.promotion.service.mapper.LessonMapper;
 import com.sombra.promotion.service.mapper.StudentAttachmentMapper;
 import org.junit.jupiter.api.Test;

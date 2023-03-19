@@ -38,8 +38,7 @@ public class UserResource {
     private final UserRepository userRepository;
 
     public UserResource(final UserService userService,
-                        final UserRepository userRepository,
-                        final SecurityService securityService) {
+                        final UserRepository userRepository) {
         this.userService = userService;
         this.userRepository = userRepository;
     }

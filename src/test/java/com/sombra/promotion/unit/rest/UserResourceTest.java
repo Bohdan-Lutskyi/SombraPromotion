@@ -1,4 +1,4 @@
-package com.sombra.promotion.web.rest;
+package com.sombra.promotion.unit.rest;
 
 import com.sombra.promotion.config.error.SystemException;
 import com.sombra.promotion.config.security.TokenProvider;
@@ -10,6 +10,7 @@ import com.sombra.promotion.service.UserService;
 import com.sombra.promotion.service.impl.SecurityServiceImpl;
 import com.sombra.promotion.service.impl.UserServiceImpl;
 import com.sombra.promotion.service.mapper.UserMapperImpl;
+import com.sombra.promotion.web.rest.UserResource;
 import com.sombra.promotion.web.rest.dto.RegistrationDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -72,11 +73,7 @@ class UserResourceTest {
         UserServiceImpl userService = new UserServiceImpl(userRepository, userMapper, new Argon2PasswordEncoder());
 
         UserRepository userRepository1 = mock(UserRepository.class);
-        TokenProvider tokenProvider = new TokenProvider();
-        UserRepository userRepository2 = mock(UserRepository.class);
-        UserMapperImpl userMapper1 = new UserMapperImpl();
-        UserResource userResource = new UserResource(userService, userRepository1, new SecurityServiceImpl(tokenProvider,
-                new UserServiceImpl(userRepository2, userMapper1, new Argon2PasswordEncoder())));
+        UserResource userResource = new UserResource(userService, userRepository1);
 
         RegistrationDTO registrationDTO = new RegistrationDTO();
         registrationDTO.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
@@ -102,11 +99,7 @@ class UserResourceTest {
         UserServiceImpl userService = new UserServiceImpl(userRepository, userMapper, new Argon2PasswordEncoder());
 
         UserRepository userRepository1 = mock(UserRepository.class);
-        TokenProvider tokenProvider = new TokenProvider();
-        UserRepository userRepository2 = mock(UserRepository.class);
-        UserMapperImpl userMapper1 = new UserMapperImpl();
-        UserResource userResource = new UserResource(userService, userRepository1, new SecurityServiceImpl(tokenProvider,
-                new UserServiceImpl(userRepository2, userMapper1, new Argon2PasswordEncoder())));
+        UserResource userResource = new UserResource(userService, userRepository1);
         RegistrationDTO registrationDTO = mock(RegistrationDTO.class);
         when(registrationDTO.getId()).thenReturn(123L);
         doNothing().when(registrationDTO).setCreatedBy((String) any());
@@ -153,11 +146,7 @@ class UserResourceTest {
         UserServiceImpl userService = new UserServiceImpl(userRepository, userMapper, new Argon2PasswordEncoder());
 
         UserRepository userRepository1 = mock(UserRepository.class);
-        TokenProvider tokenProvider = new TokenProvider();
-        UserRepository userRepository2 = mock(UserRepository.class);
-        UserMapperImpl userMapper1 = new UserMapperImpl();
-        UserResource userResource = new UserResource(userService, userRepository1, new SecurityServiceImpl(tokenProvider,
-                new UserServiceImpl(userRepository2, userMapper1, new Argon2PasswordEncoder())));
+        UserResource userResource = new UserResource(userService, userRepository1);
 
         UserDTO userDTO = new UserDTO();
         userDTO.setCreatedBy("Jan 1, 2020 8:00am GMT+0100");
