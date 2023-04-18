@@ -1,7 +1,9 @@
 spring:
   datasource:
-    url: jdbc:mysql://promotion.czqfz3juqgyi.eu-west-2.rds.amazonaws.com:3306/promotion?user=admin&password=promotionPass
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/promotion?user=root&password=root
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
   jpa:
     properties:
       hibernate:

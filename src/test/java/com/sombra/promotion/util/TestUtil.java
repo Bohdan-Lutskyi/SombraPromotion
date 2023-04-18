@@ -2,11 +2,10 @@ package com.sombra.promotion.util;
 
 import com.sombra.promotion.domain.*;
 import com.sombra.promotion.domain.enumeration.UserRole;
-import com.sombra.promotion.dto.UserDTO;
 import com.sombra.promotion.repository.*;
 import com.sombra.promotion.service.SecurityService;
-import com.sombra.promotion.util.JacksonUtil;
 import com.sombra.promotion.web.rest.dto.LoginDTO;
+import com.sombra.promotion.web.rest.dto.RegistrationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -107,8 +106,8 @@ public class TestUtil {
         return instructor;
     }
 
-    public static UserDTO getTestAdminUserDTO() {
-        return new UserDTO(null, DEFAULT_ADMIN_EMAIL, DEFAULT_FIRST_NAME, DEFAULT_SECOND_ADMIN_NAME, Collections.singleton(UserRole.ADMIN));
+    public static RegistrationDTO getTestInstructorRegistrationDTO() {
+        return new RegistrationDTO(null, DEFAULT_INSTRUCTOR_EMAIL, DEFAULT_FIRST_NAME, DEFAULT_SECOND_INSTRUCTOR_NAME, Collections.singleton(UserRole.INSTRUCTOR), DEFAULT_PASSWORD);
     }
 
     public User createTestAdmin() {

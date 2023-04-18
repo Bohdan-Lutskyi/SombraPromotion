@@ -73,9 +73,6 @@ class UserIT {
     @Autowired
     private TestUtil testUtil;
 
-    @Autowired
-    private JWTLoginController loginController;
-
     /**
      * Create an entity for this test.
      * <p>

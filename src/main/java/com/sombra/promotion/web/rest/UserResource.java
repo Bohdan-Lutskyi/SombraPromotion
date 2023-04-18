@@ -48,11 +48,9 @@ public class UserResource {
      *
      * @param registrationDTO the userDTO to create.
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new userDTO, or with status {@code 400 (Bad Request)} if the user has already an ID.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/register")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<UserDTO> registerAccount(@Valid @RequestBody RegistrationDTO registrationDTO) throws URISyntaxException {
+    public ResponseEntity<UserDTO> registerAccount(@Valid @RequestBody RegistrationDTO registrationDTO) {
         log.debug("REST request to register User : {}", registrationDTO);
         if (registrationDTO.getId() != null) {
             throw new SystemException("A new user cannot already have an ID", ErrorCode.BAD_REQUEST);

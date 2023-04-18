@@ -1,8 +1,8 @@
 package com.sombra.promotion.e2e;
 
-import com.sombra.promotion.domain.enumeration.UserRole;
 import com.sombra.promotion.e2e.abstraction.E2ETest;
 import com.sombra.promotion.util.TestUtil;
+import com.sombra.promotion.web.rest.dto.RegistrationDTO;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -13,18 +13,30 @@ public class RegistrationE2ETest extends E2ETest {
 
     @Test
     void must_register_user() {
+        final RegistrationDTO registrationDTO = TestUtil.getTestInstructorRegistrationDTO();
 
         given().contentType("application/json")
-                .body(TestUtil.getTestAdminUserDTO())
+                .body(registrationDTO)
                 .when()
                 .post(testURL("/register"))
                 .then()
                 .statusCode(200)
                 .assertThat()
-                .body("user.email", is(TestUtil.DEFAULT_ADMIN_EMAIL))
-                .body("user.firstName", is(TestUtil.DEFAULT_FIRST_NAME))
-                .body("user.secondName", is(TestUtil.DEFAULT_SECOND_ADMIN_NAME))
-                .body("user.userRoles", contains(UserRole.ADMIN));
+                .body("user.email", is(registrationDTO.getEmail()))
+                .body("user.firstName", is(registrationDTO.getFirstName()))
+                .body("user.secondName", is(registrationDTO.getSecondName()))
+                .body("user.userRoles", contains(registrationDTO.getUserRoles()));
+
+
+//        restUserMockMvc
+//                .perform(post("/api/register")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(JacksonUtil.serialize(registrationDTO)))
+//                .andExpect(status().isOk())
+//                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+//                .andExpect(jsonPath("$.email").value(hasItem(DEFAULT_EMAIL)))
+//                .andExpect(jsonPath("$.firstName").value(hasItem(DEFAULT_FIRST_NAME)))
+//                .andExpect(jsonPath("$.secondName").value(hasItem(DEFAULT_SECOND_NAME)));
 
     }
 
