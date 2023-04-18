@@ -3,6 +3,7 @@ package com.sombra.promotion.util;
 import com.sombra.promotion.domain.*;
 import com.sombra.promotion.domain.enumeration.UserRole;
 import com.sombra.promotion.dto.CourseDTO;
+import com.sombra.promotion.dto.LessonDTO;
 import com.sombra.promotion.repository.*;
 import com.sombra.promotion.service.SecurityService;
 import com.sombra.promotion.web.rest.dto.LoginDTO;
@@ -202,11 +203,42 @@ public class TestUtil {
         return savedLesson;
     }
 
+    public LessonDTO createLessonDTO(final Long studentId, final Long courseId) {
+        final LessonDTO lesson = new LessonDTO();
+        lesson.setLessonNumber(DEFAULT_LESSON_NUMBER);
+        lesson.setMark(DEFAULT_LESSON_NUMBER);
+        lesson.setCourseId(courseId);
+        lesson.setStudentId(studentId);
+        return lesson;
+    }
+
+    public Lesson createLesson(final Student student, final Course course, final Integer finalMark, final Integer lessonNumber) {
+        Lesson lesson = Lesson.builder()
+                .lessonNumber(lessonNumber.shortValue())
+                .mark(finalMark.shortValue())
+                .course(course)
+                .student(student)
+                .build();
+        final Lesson savedLesson = lessonRepository.save(lesson);
+        return savedLesson;
+    }
+
     public Course createCourse() {
         Course course = Course.builder()
                 .name(DEFAULT_NAME)
                 .numberOfLessons(DEFAULT_NUMBER_OF_LESSONS)
                 .instructors(Collections.singleton(createTestInstructor()))
+                .build();
+        final Course save = courseRepository.save(course);
+        return save;
+    }
+
+    public Course createCourseWithInstructorAndStudent() {
+        Course course = Course.builder()
+                .name(DEFAULT_NAME)
+                .numberOfLessons(DEFAULT_NUMBER_OF_LESSONS)
+                .instructors(Collections.singleton(createTestInstructor()))
+                .students(Collections.singleton(createTestStudent()))
                 .build();
         final Course save = courseRepository.save(course);
         return save;
