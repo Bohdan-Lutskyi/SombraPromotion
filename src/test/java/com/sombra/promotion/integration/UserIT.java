@@ -374,7 +374,7 @@ class UserIT {
 
     @Test
     void adminCantAssignRoleToUser_whenRoleAlreadySet() throws Exception {
-        Student student = testUtil.createTestStudent();
+        Student student = testUtil.createTestStudentWithCourse();
 
         ResultActions resultActions = restUserMockMvc.perform(put("/api/users/" + student.getId() + "/role")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -391,7 +391,7 @@ class UserIT {
     @Test
     @WithMockUser(roles = {"STUDENT"})
     void nonUserUserCantAssignRoleToUser() throws Exception {
-        Student student = testUtil.createTestStudent();
+        Student student = testUtil.createTestStudentWithCourse();
 
         // WHEN admin setts role to a user with role
         ResultActions resultActions = restUserMockMvc.perform(put("/api/users/" + student.getUser().getId() + "/role")

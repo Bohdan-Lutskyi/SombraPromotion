@@ -70,7 +70,7 @@ class CourseFeedbackIT {
         CourseFeedback courseFeedback = CourseFeedback.builder()
                 .feedback(DEFAULT_FEEDBACK)
                 .course(course)
-                .student(testUtil.createTestStudent(Collections.singleton(course)))
+                .student(testUtil.createTestStudentWithCourse(Collections.singleton(course)))
                 .build();
         return courseFeedback;
     }

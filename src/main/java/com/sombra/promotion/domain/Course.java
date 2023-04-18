@@ -31,7 +31,7 @@ public class Course extends BaseEntity implements Serializable {
     @Column(name = "number_of_lessons")
     private Short numberOfLessons;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(
             name = "course_instructors",
             joinColumns = {@JoinColumn(name = "course_id")},
@@ -40,7 +40,7 @@ public class Course extends BaseEntity implements Serializable {
     @JsonIgnoreProperties(value = {"students", "instructors", "courses"}, allowSetters = true)
     private Set<Instructor> instructors = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(
             name = "course_students",
             joinColumns = {@JoinColumn(name = "course_id")},

@@ -2,6 +2,7 @@ package com.sombra.promotion.util;
 
 import com.sombra.promotion.domain.*;
 import com.sombra.promotion.domain.enumeration.UserRole;
+import com.sombra.promotion.dto.CourseDTO;
 import com.sombra.promotion.repository.*;
 import com.sombra.promotion.service.SecurityService;
 import com.sombra.promotion.web.rest.dto.LoginDTO;
@@ -49,24 +50,23 @@ public class TestUtil {
 
     public static final String DEFAULT_SECOND_STUDENT_NAME = "Student";
     public static final String DEFAULT_STUDENT_EMAIL = "test.student@test.com";
+    public static final String NO_ROLE_STUDENT_EMAIL = "no-role-test.student@test.com";
     public static final String DEFAULT_SECOND_INSTRUCTOR_NAME = "Instructor";
     public static final String DEFAULT_INSTRUCTOR_EMAIL = "test.instructor@test.com";
+    public static final String NO_ROLE_INSTRUCTOR_EMAIL = "no-role-test.instructor@test.com";
+    public static final String REGISTRATION_INSTRUCTOR_EMAIL = "reg.test.instructor@test.com";
     public static final String DEFAULT_SECOND_ADMIN_NAME = "Admin";
     public static final String DEFAULT_ADMIN_EMAIL = "test.admin@test.com";
 
-    private static final Short DEFAULT_LESSON_NUMBER = 1;
-    private static final Short DEFAULT_MARK = 2;
+    public static final Short DEFAULT_LESSON_NUMBER = 1;
+    public static final Short DEFAULT_MARK = 2;
 
-    private static final String DEFAULT_FEEDBACK = "AAAAAAAAAA";
+    public static final String DEFAULT_FEEDBACK = "AAAAAAAAAA";
 
-    private static final String DEFAULT_NAME = "AAAAAAAAAA";
-    private static final Short DEFAULT_NUMBER_OF_LESSONS = 10;
+    public static final String DEFAULT_NAME = "AAAAAAAAAA";
+    public static final Short DEFAULT_NUMBER_OF_LESSONS = 10;
 
-    public String getAuthToken(User user) {
-        return securityService.login(new LoginDTO(user.getEmail(), DEFAULT_PASSWORD), new HttpHeaders());
-    }
-
-    public Student createTestStudent(Set<Course> courses) {
+    public Student createTestStudentWithCourse(Set<Course> courses) {
         User user = createUser(Collections.singleton(UserRole.STUDENT), DEFAULT_FIRST_NAME, DEFAULT_SECOND_STUDENT_NAME, DEFAULT_STUDENT_EMAIL);
         final Student student = new Student();
         student.setUser(user);
@@ -76,6 +76,14 @@ public class TestUtil {
     }
 
     public Student createTestStudent() {
+        User user = createUser(Collections.singleton(UserRole.STUDENT), DEFAULT_FIRST_NAME, DEFAULT_SECOND_STUDENT_NAME, DEFAULT_STUDENT_EMAIL);
+        final Student student = new Student();
+        student.setUser(user);
+        studentRepository.save(student);
+        return student;
+    }
+
+    public Student createTestStudentWithCourse() {
         User user = createUser(Collections.singleton(UserRole.STUDENT), DEFAULT_FIRST_NAME, DEFAULT_SECOND_STUDENT_NAME, DEFAULT_STUDENT_EMAIL);
         final Student student = new Student();
         student.setUser(user);
@@ -91,8 +99,24 @@ public class TestUtil {
         return student;
     }
 
+    public Student createTestStudentWithoutRole() {
+        User user = createUser(DEFAULT_FIRST_NAME, DEFAULT_SECOND_STUDENT_NAME, NO_ROLE_STUDENT_EMAIL);
+        final Student student = new Student();
+        student.setUser(user);
+        studentRepository.save(student);
+        return student;
+    }
+
     public Instructor createTestInstructor() {
         User user = createUser(Collections.singleton(UserRole.INSTRUCTOR), DEFAULT_FIRST_NAME, DEFAULT_SECOND_INSTRUCTOR_NAME, DEFAULT_INSTRUCTOR_EMAIL);
+        final Instructor instructor = new Instructor();
+        instructor.setUser(user);
+        instructorRepository.save(instructor);
+        return instructor;
+    }
+
+    public Instructor createTestInstructorWithoutRole() {
+        User user = createUser(Collections.singleton(UserRole.INSTRUCTOR), DEFAULT_FIRST_NAME, DEFAULT_SECOND_INSTRUCTOR_NAME, NO_ROLE_INSTRUCTOR_EMAIL);
         final Instructor instructor = new Instructor();
         instructor.setUser(user);
         instructorRepository.save(instructor);
@@ -107,7 +131,7 @@ public class TestUtil {
     }
 
     public static RegistrationDTO getTestInstructorRegistrationDTO() {
-        return new RegistrationDTO(null, DEFAULT_INSTRUCTOR_EMAIL, DEFAULT_FIRST_NAME, DEFAULT_SECOND_INSTRUCTOR_NAME, Collections.singleton(UserRole.INSTRUCTOR), DEFAULT_PASSWORD);
+        return new RegistrationDTO(null, REGISTRATION_INSTRUCTOR_EMAIL, DEFAULT_FIRST_NAME, DEFAULT_SECOND_INSTRUCTOR_NAME, Collections.singleton(UserRole.INSTRUCTOR), DEFAULT_PASSWORD);
     }
 
     public User createTestAdmin() {
@@ -132,6 +156,18 @@ public class TestUtil {
         return user;
     }
 
+    public User createUser(String firstName, String secondName, String email) {
+        final User user = new User();
+        user.setUserRoles(JacksonUtil.serialize(UserRole.NO_ROLE));
+        user.setFirstName(firstName);
+        user.setSecondName(secondName);
+        user.setEmail(email);
+        user.setPassword(encode(DEFAULT_PASSWORD));
+        userRepository.save(user);
+
+        return user;
+    }
+
     public User createUserEntity() {
         final User user = new User();
         user.setUserRoles(JacksonUtil.serialize(Collections.singletonList(DEFAULT_USER_ROLE)));
@@ -147,7 +183,7 @@ public class TestUtil {
     }
 
     public Lesson createLesson() {
-        final Student student = createTestStudent();
+        final Student student = createTestStudentWithCourse();
         Lesson lesson = Lesson.builder()
                 .lessonNumber(DEFAULT_LESSON_NUMBER)
                 .mark(DEFAULT_MARK)
@@ -168,15 +204,31 @@ public class TestUtil {
         return save;
     }
 
+    public CourseDTO createRequestCourseDTO(final Student student, final Instructor instructor) {
+        final CourseDTO courseDTO = new CourseDTO();
+        courseDTO.setName(DEFAULT_NAME);
+        courseDTO.setNumberOfLessons(DEFAULT_NUMBER_OF_LESSONS);
+        courseDTO.setStudentIds(Collections.singleton(student.getId()));
+        courseDTO.setInstructorIds(Collections.singleton(instructor.getId()));
+        return courseDTO;
+    }
+
     public CourseFeedback createCourseFeedbackEntity() {
         final Course course = createCourse();
         CourseFeedback courseFeedback = CourseFeedback.builder()
                 .feedback(DEFAULT_FEEDBACK)
                 .course(course)
-                .student(createTestStudent(Collections.singleton(course)))
+                .student(createTestStudentWithCourse(Collections.singleton(course)))
                 .build();
 
         return courseFeedback;
+    }
+
+    public String generateToken(final String email, final String password ) {
+        final LoginDTO loginDTO = new LoginDTO(email, password);
+        final HttpHeaders httpHeaders = new HttpHeaders();
+        final String token = securityService.login(loginDTO, httpHeaders);
+        return token;
     }
 
 

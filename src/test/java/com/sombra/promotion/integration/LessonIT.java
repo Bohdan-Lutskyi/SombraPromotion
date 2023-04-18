@@ -73,7 +73,7 @@ class LessonIT {
      * if they test an entity which requires the current entity.
      */
     public Lesson createEntity() {
-        final Student student = testUtil.createTestStudent();
+        final Student student = testUtil.createTestStudentWithCourse();
         Lesson lesson = Lesson.builder()
                 .lessonNumber(DEFAULT_LESSON_NUMBER)
                 .mark(DEFAULT_MARK)
