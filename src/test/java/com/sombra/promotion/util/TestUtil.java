@@ -83,6 +83,14 @@ public class TestUtil {
         return student;
     }
 
+    public Student createTestStudent(final String email) {
+        User user = createUser(Collections.singleton(UserRole.STUDENT), DEFAULT_FIRST_NAME, DEFAULT_SECOND_STUDENT_NAME, email);
+        final Student student = new Student();
+        student.setUser(user);
+        studentRepository.save(student);
+        return student;
+    }
+
     public Student createTestStudentWithCourse() {
         User user = createUser(Collections.singleton(UserRole.STUDENT), DEFAULT_FIRST_NAME, DEFAULT_SECOND_STUDENT_NAME, DEFAULT_STUDENT_EMAIL);
         final Student student = new Student();
@@ -199,6 +207,15 @@ public class TestUtil {
                 .name(DEFAULT_NAME)
                 .numberOfLessons(DEFAULT_NUMBER_OF_LESSONS)
                 .instructors(Collections.singleton(createTestInstructor()))
+                .build();
+        final Course save = courseRepository.save(course);
+        return save;
+    }
+
+    public Course createCourseWithoutInstructor() {
+        Course course = Course.builder()
+                .name(DEFAULT_NAME)
+                .numberOfLessons(DEFAULT_NUMBER_OF_LESSONS)
                 .build();
         final Course save = courseRepository.save(course);
         return save;

@@ -17,19 +17,19 @@ abstract public class E2ETest {
     @LocalServerPort
     protected int port;
     @Autowired
-    private CourseFeedbackRepository courseFeedbackRepository;
+    protected CourseFeedbackRepository courseFeedbackRepository;
     @Autowired
-    private CourseRepository courseRepository;
+    protected CourseRepository courseRepository;
     @Autowired
-    private InstructorRepository instructorRepository;
+    protected InstructorRepository instructorRepository;
     @Autowired
-    private LessonRepository lessonRepository;
+    protected LessonRepository lessonRepository;
     @Autowired
-    private StudentAttachmentRepository studentAttachmentRepository;
+    protected StudentAttachmentRepository studentAttachmentRepository;
     @Autowired
-    private StudentRepository studentRepository;
+    protected StudentRepository studentRepository;
     @Autowired
-    private UserRepository userRepository;
+    protected UserRepository userRepository;
     @Autowired
     protected TestUtil testUtil;
     @Autowired
