@@ -65,7 +65,7 @@ class StudentIT {
      * if they test an entity which requires the current entity.
      */
     public Student createEntity(EntityManager em) {
-        Student student = testUtil.createTestStudentWithCourse();
+        Student student = testUtil.createTestStudentEntity();
         return student;
     }
 

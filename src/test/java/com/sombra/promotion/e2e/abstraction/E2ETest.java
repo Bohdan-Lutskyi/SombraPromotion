@@ -4,6 +4,7 @@ import com.sombra.promotion.PromotionApplication;
 import com.sombra.promotion.repository.*;
 import com.sombra.promotion.service.SecurityService;
 import com.sombra.promotion.util.TestUtil;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -42,6 +43,12 @@ abstract public class E2ETest {
     @BeforeEach
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     void setUp() {
+        deleteWholeDB();
+    }
+
+    @AfterEach
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    void clearDb() {
         deleteWholeDB();
     }
 
